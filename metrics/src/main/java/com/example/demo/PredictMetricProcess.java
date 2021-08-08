@@ -5,10 +5,7 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -62,6 +59,7 @@ public class PredictMetricProcess implements InitializingBean {
                 }
                 sceneFailCode.get(sceneInfo).merge(k, v, Integer::sum);
             });
+            Long maxRetCode = modelFailCode.get(modelInfo).entrySet().stream().max(Comparator.comparingInt(Map.Entry::getValue)).get().getKey();
         });
 
 
